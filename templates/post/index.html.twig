@@ -1,0 +1,54 @@
+{% extends('base.html.twig')  %}
+
+{% block stylesheets %}
+    <style> .flash-notice { color: red } </style>
+{% endblock %}
+
+
+
+{% block body %}
+
+
+{% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert" style="color:red;">
+        
+        {# {% apply inline_css %}
+        <style>
+                 { color: red; }
+            </style>
+            {% endapply %} #}
+
+            {{ message  }}
+        </div>
+    {% endfor %}
+
+
+  <h1> List of all posts </h1>
+   <table class="table table-striped"> 
+   <thead> 
+      <tr>
+           <th> ID </th>
+           <th> Title </th>
+           <th> Actions </th>
+      </tr>
+     </thead>
+     <tbody> 
+       {% for post in posts %}
+          <tr> 
+              <td>{{ post.id }}</td>
+              <td>
+                   <a href="{{ path('post.show', {id: post.id}) }}">
+                   {{ post.title }} </a>
+              </td>
+
+              <td> 
+                <a  class="text-danger" href="{{path('post.delete', {id: post.id}) }}">
+                Delete </a>
+                  
+              </td>
+          </tr>
+          {% endfor %}
+     </tbody>
+   </table>
+
+{% endblock %}
